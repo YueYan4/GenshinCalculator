@@ -4,33 +4,17 @@
 #   --header 'authorization: YOUR-API-TOKEN'
 
 import requests
-from selenium import webdriver
+from flask import Flask, render_template, request
+
+app = Flask(__name__)
 
 auth_key = 'a30b0d235ea04ce5946b07f391afd504'
 
-transcript_endpoint = "https://api.assemblyai.com/v2/transcript"
-upload_endpoint = 'https://api.assemblyai.com/v2/upload'
-
-driver = webdriver.Chrome()
-get_url = driver.current_url
-
-if "youtube.com" not in get_url:
-    print("Invalid URL")
-
-json = {
-    "audio_url": get_url
-}
-
-headers = {
-    "authorization": auth_key,
-    "content-type": "application/json"
-}
-
-headers_auth_only = {'authorization': auth_key}
-
-response = requests.post(transcript_endpoint, json=json, headers=headers)
-
-while (response.status_code != "completed" or response.status_code != "error"):
-    response = requests.post(transcript_endpoint, json=json, headers=headers)
-
+@app.route('/', methods = ['POST', 'GET'])
+def get_transcript():
+    return render_template('index.html')
+    
+@app.route('/HawkHacks/templates/text.html?_ijt=ru8pe5a0phkec4omd1je5nf7ob&_ij_reload', methods = ['GET', 'POST'])
+def get_text():
+    return render_template('text.html')
 
