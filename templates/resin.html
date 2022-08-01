@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<style>
+
+    h1 {
+        text-align: center;
+        color: PowderBlue;
+    }
+
+    body {
+        background-color: RoyalBlue;
+    }
+    #form {
+        text-align: center;
+    }
+    #home {
+        font-size: 20px;
+        background-color: PowderBlue;
+        color: darkblue;
+    }
+    p {
+        color: PowderBlue;
+        font-size: 20px
+    }
+    #form1 {
+        color: PowderBlue;
+    }
+
+</style>
+
+<body>
+<h1>Resin Calculator</h1>
+
+<div>
+    <img src = "../images/resin.png" alt = "resin banner" width = 800 height = 300>
+</div>
+
+<form method="post" action="/resin" id = "form">
+    <input type="button" onclick ="location.href='http://127.0.0.1:5000/'" value = "Home" id = "home"/>
+</form>
+<p>Calculate when your resin will cap</p>
+
+
+
+
+
+<form id = "form1">
+    <label for="Cur">Current Resin:</label><br>
+    <input type="text" id="Current Resin" name="Current Resin" class = "input" value=""><br>
+    <input type="button" value="Submit" onclick = "calc()">
+  </form> 
+
+<text hidden for= "Time Resin Caps" id = "Time Resin Caps">Time Resin Caps: <text for = "Result" id = "Result"></text> </text>
+
+
+<script>
+    function calc(){
+        document.getElementById("Time Resin Caps").removeAttribute("hidden");
+        if (document.getElementById("Current Resin").value < 0 || document.getElementById("Current Resin").value > 160 || document.getElementById("Current Resin").value == null || document.getElementById("Current Resin").value == "" || document.getElementById("Current Resin").value.match("^[a-zA-Z]+$")) {
+            document.getElementById("Result").innerText = "Invalid Input";
+            return;
+        }
+        var time = new Date();
+        var ms = (((160 - document.getElementById("Current Resin").value) * 8)) * 60000;
+        var res_time = new Date(time.getTime() + ms);
+        var result = res_time.getHours() + ":" + res_time.getMinutes();
+        document.getElementById("Result").innerText = result;
+    }
+</script>
+
+</body>
+
+</html>
